@@ -16,6 +16,10 @@
 10. reviews_count - кол-во отзывов
 11. reviews_rating - рейтинги по отзывам (от 1 до 5)
 
+Второй датасет лежит в папке another dataset
+Он был найден по названию контеста от росбанка, на котором основана данная тема.
+
+
 Plan:
 1. Data parsing.
 2. Feature Engineering.
