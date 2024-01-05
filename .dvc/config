@@ -1,0 +1,5 @@
+[core]
+    autostage = true
+    remote = atm
+['remote "atm"']
+    url = gdrive://1u6Ql1Usm8R9gnPTyd0y2fZTqlfE63vxO
