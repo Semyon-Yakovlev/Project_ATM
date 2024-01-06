@@ -201,6 +201,26 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "catboost"
+version = "1.2.2"
+description = "CatBoost Python Package"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+widget = ["traitlets", "ipython", "ipywidgets (>=7.0,<9.0)"]
+
+[package.dependencies]
+graphviz = "*"
+matplotlib = "*"
+numpy = ">=1.16.0"
+pandas = ">=0.24"
+plotly = "*"
+scipy = "*"
+six = "*"
+
+[[package]]
 name = "celery"
 version = "5.3.6"
 description = "Distributed Task Queue."
@@ -977,6 +997,19 @@ full = ["numpy", "ply"]
 pyparsing = "*"
 
 [[package]]
+name = "graphviz"
+version = "0.20.1"
+description = "Simple Python interface for Graphviz"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+dev = ["tox (>=3)", "flake8", "pep8-naming", "wheel", "twine"]
+docs = ["sphinx (>=5)", "sphinx-autodoc-typehints", "sphinx-rtd-theme"]
+test = ["pytest (>=7)", "pytest-mock (>=3)", "mock (>=4)", "pytest-cov", "coverage"]
+
+[[package]]
 name = "greenlet"
 version = "3.0.3"
 description = "Lightweight in-process concurrent programming"
@@ -1493,6 +1526,18 @@ python-versions = ">=3.7"
 [package.extras]
 docs = ["furo (>=2023.7.26)", "proselint (>=0.13)", "sphinx-autodoc-typehints (>=1.24)", "sphinx (>=7.1.1)"]
 test = ["appdirs (1.4.4)", "covdefaults (>=2.3)", "pytest-cov (>=4.1)", "pytest-mock (>=3.11.1)", "pytest (>=7.4)"]
+
+[[package]]
+name = "plotly"
+version = "5.18.0"
+description = "An open-source, interactive data visualization library for Python"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+packaging = "*"
+tenacity = ">=6.2.0"
 
 [[package]]
 name = "pre-commit"
@@ -2050,6 +2095,17 @@ python-versions = ">=3.7"
 widechars = ["wcwidth"]
 
 [[package]]
+name = "tenacity"
+version = "8.2.3"
+description = "Retry code until it succeeds"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+doc = ["reno", "sphinx", "tornado (>=4.5)"]
+
+[[package]]
 name = "termcolor"
 version = "2.4.0"
 description = "ANSI color formatting for output in terminal"
@@ -2307,7 +2363,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-ena
 
 [metadata]
 python-versions = "^3.9"
-content-hash = "2f200196ac5812c4431a210d84714b467c0f56784a3f128b6cd9eaddab978bfd"
+content-hash = "f03ac7ad7fad5d84c09d34e38c1eeec6c599a2cc2d898a67e9ee236d9ab12df9"
 
 [metadata.files]
 aiohttp = []
@@ -2326,6 +2382,7 @@ billiard = []
 black = []
 blinker = []
 cachetools = []
+catboost = []
 celery = []
 certifi = []
 cffi = []
@@ -2375,6 +2432,7 @@ google-auth = []
 google-auth-httplib2 = []
 googleapis-common-protos = []
 grandalf = []
+graphviz = []
 greenlet = []
 gto = []
 gunicorn = []
@@ -2412,6 +2470,7 @@ pandas = []
 pathspec = []
 pillow = []
 platformdirs = []
+plotly = []
 pre-commit = []
 prometheus-client = []
 prometheus-flask-exporter = []
@@ -2454,6 +2513,7 @@ sqlparse = []
 sqltrie = []
 sympy = []
 tabulate = []
+tenacity = []
 termcolor = []
 threadpoolctl = []
 toml = []
