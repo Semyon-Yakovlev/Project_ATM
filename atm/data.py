@@ -19,7 +19,7 @@ def read_data(path):
         if path in (X_train_dir_git, X_test_dir_git):
             data = read_csv(file, index_col=[0])
         elif path in (y_train_dir_git, y_test_dir_git):
-            data = read_csv(file)
+            data = read_csv(file, index_col=[0])
         elif path == data_dir_git:
             data = read_csv(file, index_col=[0])
             data = data.drop(columns=["address", "address_rus"])

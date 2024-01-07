@@ -1,5 +1,5 @@
 outs:
-- md5: b5e79c2471f4f3f0d2bece8674896055
-  size: 10181038
+- md5: ef6adece70010b2aa50622a13541c89b
+  size: 693436
   hash: md5
   path: model.h5
