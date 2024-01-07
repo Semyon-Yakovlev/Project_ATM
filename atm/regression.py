@@ -5,15 +5,14 @@ from joblib import dump
 from mlflow import log_metric, log_param, set_tracking_uri, start_run
 from omegaconf import DictConfig
 from sklearn.metrics import r2_score
-from sklearn.model_selection import train_test_split
 
 from hydra import main
 
-from . import models_dir_local, train_dir_git
+from . import models_dir_local, X_test_dir_git,X_train_dir_git,y_test_dir_git,y_train_dir_git
 from .data import read_data
 
 
-@main(version_base=None, config_path="/hydra", config_name="config")
+@main(version_base=None, config_path="./hydra", config_name="config")
 def train(cfg: DictConfig):
     set_tracking_uri(f"""http://{cfg["params"].host}:{cfg["params"].port}""")
     git_commit_id = (
@@ -29,7 +28,7 @@ def train(cfg: DictConfig):
         log_param("depth", cfg["params"].depth)
         log_param("l2_leaf_reg", cfg["params"].l2_leaf_reg)
         log_param("random", cfg["params"].random)
-        
+        X_test, X_train, y_train, y_test = read_data(X_test_dir_git), read_data(X_train_dir_git), read_data(y_train_dir_git), read_data(y_test_dir_git)
         val_pool = Pool(X_test, y_test)
 
         reg = CatBoostRegressor(
