@@ -8,8 +8,6 @@ from omegaconf import DictConfig
 @main(version_base=None, config_path="../hydra", config_name="config")
 def train(cfg: DictConfig):
     data = read_data(train_dir_git)
-    data = data.drop(columns=["address", "address_rus"])
-    data = data.dropna()
     X = data.drop(columns=["target"])
     y = data.target
     reg = CatBoostRegressor(iterations = cfg["params"].iterations,

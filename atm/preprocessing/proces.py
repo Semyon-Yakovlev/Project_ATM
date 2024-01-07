@@ -7,8 +7,9 @@ from .. import train_dir_local, train_dir_git
 from ..data import read_data
 
 
-def feature_engineering(data=read_data(train_dir_git)):
-    train = data
+def feature_engineering():
+
+    train = read_data(train_dir_git)
     train.rename(columns={"Unnamed: 0": "atm_id"}, inplace=True)
     train[["lat_rad", "long_rad"]] = np.radians(train[["lat", "long"]])
     train["key"] = 0
