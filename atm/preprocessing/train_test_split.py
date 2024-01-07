@@ -19,10 +19,10 @@ def split_data(cfg: DictConfig):
         test_size=cfg["params"].test_size,
         random_state=cfg["params"].random,
     )
-    dump(X_train, X_train_dir_local)
-    dump(X_test, X_test_dir_local)
-    dump(y_train, y_train_dir_local)
-    dump(y_test, y_test_dir_local)
+    X_train.to_csv(X_train_dir_local)
+    X_test.to_csv(X_test_dir_local)
+    y_train.to_csv(y_train_dir_local)
+    y_test.to_csv(y_test_dir_local)
 
 if __name__ == "__main__":
     split_data()
