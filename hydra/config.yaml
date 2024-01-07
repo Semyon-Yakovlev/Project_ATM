@@ -1,0 +1,7 @@
+model: catboost_model
+params:
+ iterations: 1000
+ learning_rate: 0.01
+ loss_function: 'RMSE'
+ host = '127.0.1.1'
+ port = 8080

@@ -1,14 +1,21 @@
 from joblib import dump
 from catboost import CatBoostRegressor
+from . import models_dir_local, train_dir_git
+from .data import read_data
+from hydra import main
+from omegaconf import DictConfig
 
-from . import models_directory
-from .dataset import read_dataset
-
-
-def train(data=read_dataset(), models_dir=models_directory):
+@main(version_base=None, config_path="../hydra", config_name="config")
+def train(cfg: DictConfig):
+    data = read_data(train_dir_git)
     data = data.drop(columns=["address", "address_rus"])
     data = data.dropna()
     X = data.drop(columns=["target"])
     y = data.target
-    reg = CatBoostRegressor().fit(X, y)
-    return dump(reg, models_dir)
+    reg = CatBoostRegressor(iterations = cfg["params"].iterations,
+                            learning_rate = cfg["params"].learning_rate,
+                            loss_function = cfg["params"].loss_function).fit(X, y)
+    dump(reg, models_dir_local)
+
+if __name__ == "__main__":
+    train()
