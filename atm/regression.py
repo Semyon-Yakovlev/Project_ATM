@@ -1,6 +1,10 @@
+from subprocess import check_output
+
 from catboost import CatBoostRegressor, Pool
 from joblib import dump
+from mlflow import log_metric, log_param, set_tracking_uri, start_run
 from omegaconf import DictConfig
+from sklearn.metrics import r2_score
 from sklearn.model_selection import train_test_split
 
 from hydra import main
@@ -9,27 +13,38 @@ from . import models_dir_local, train_dir_git
 from .data import read_data
 
 
-@main(version_base=None, config_path="../hydra", config_name="config")
+@main(version_base=None, config_path="/hydra", config_name="config")
 def train(cfg: DictConfig):
-    data = read_data(train_dir_git)
-    X_train, X_test, y_train, y_test = train_test_split(
-        data.drop(columns=["target"]),
-        data.target,
-        test_size=0.33,
-        random_state=cfg["params"].random,
+    set_tracking_uri(f"""http://{cfg["params"].host}:{cfg["params"].port}""")
+    git_commit_id = (
+        check_output(["git", "rev-parse", "--short", "HEAD"]).strip().decode("utf-8")
     )
-    val_pool = Pool(X_test, y_test)
-    reg = CatBoostRegressor(
-        iterations=cfg["params"].iterations,
-        learning_rate=cfg["params"].learning_rate,
-        loss_function=cfg["params"].loss_function,
-        verbose=cfg["params"].verbose,
-        random_seed=cfg["params"].random,
-        task_type=cfg["params"].task_type,
-    ).fit(
-        X_train, y_train, eval_set=val_pool, use_best_model=cfg["params"].use_best_model
-    )
-    dump(reg, models_dir_local)
+    with start_run():
+        log_param("git_commit_id", git_commit_id)
+        log_param("iterations", cfg["params"].iterations)
+        log_param("learning_rate", cfg["params"].learning_rate)
+        log_param("loss_function", cfg["params"].loss_function)
+        log_param("verbose", cfg["params"].verbose)
+        log_param("min_data_in_leaf", cfg["params"].min_data_in_leaf)
+        log_param("depth", cfg["params"].depth)
+        log_param("l2_leaf_reg", cfg["params"].l2_leaf_reg)
+        log_param("random", cfg["params"].random)
+        
+        val_pool = Pool(X_test, y_test)
+
+        reg = CatBoostRegressor(
+            iterations=cfg["params"].iterations,
+            learning_rate=cfg["params"].learning_rate,
+            loss_function=cfg["params"].loss_function,
+            verbose=cfg["params"].verbose,
+            min_data_in_leaf=cfg["params"].min_data_in_leaf,
+            depth=cfg["params"].depth,
+            l2_leaf_reg=cfg["params"].l2_leaf_reg,
+            random_seed=cfg["params"].random,
+            task_type=cfg["params"].task_type,
+        ).fit(X_train, y_train, eval_set=val_pool)
+        log_metric("r2_score", r2_score(y_test, reg.predict(X_test)))
+        dump(reg, models_dir_local)
 
 
 if __name__ == "__main__":
