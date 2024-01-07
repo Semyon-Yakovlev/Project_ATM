@@ -1,7 +1,9 @@
 from dvc.api import DVCFileSystem
-from pandas import read_csv
 from joblib import load
-from . import project_dir_git, train_dir_git, test_dir_git, models_dir_git
+from pandas import read_csv
+
+from . import models_dir_git, project_dir_git, test_dir_git, train_dir_git
+
 
 def read_data(path):
     fs = DVCFileSystem(project_dir_git)
@@ -13,5 +15,5 @@ def read_data(path):
         elif path == models_dir_git:
             data = load(file)
         else:
-            raise 
+            raise
     return data

@@ -3,12 +3,11 @@ import json
 import numpy as np
 import pandas as pd
 
-from .. import train_dir_local, train_dir_git
+from .. import train_dir_git, train_dir_local
 from ..data import read_data
 
 
 def feature_engineering():
-
     train = read_data(train_dir_git)
     train.rename(columns={"Unnamed: 0": "atm_id"}, inplace=True)
     train[["lat_rad", "long_rad"]] = np.radians(train[["lat", "long"]])
