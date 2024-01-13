@@ -1,5 +1,0 @@
-outs:
-- md5: ef0f279abf913b02a2c7190c7fd58bee
-  size: 120543
-  hash: md5
-  path: y_train.csv
