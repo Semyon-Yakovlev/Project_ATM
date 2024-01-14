@@ -660,20 +660,20 @@ tqdm = ">=4.63.1,<5"
 
 [[package]]
 name = "dvc-gdrive"
-version = "0.0.1"
+version = "3.0.1"
 description = "gdrive plugin for dvc"
 category = "dev"
 optional = false
 python-versions = ">=3.8"
 
 [package.extras]
-tests = ["wheel (0.37.0)", "dvc", "pytest (6.2.5)", "pytest-cov (3.0.0)", "pytest-xdist (2.4.0)", "pytest-mock (3.6.1)", "pytest-lazy-fixture (0.6.3)", "pytest-docker (0.10.3)", "flaky (3.7.0)", "mock (4.0.3)", "wget (3.2)", "filelock (3.3.2)", "crc32c (2.2.post0)", "xmltodict (0.12.0)", "Pygments (2.10.0)", "collective.checkdocs (0.2)", "pydocstyle (6.1.1)", "pylint (2.11.1)", "pylint-pytest (1.1.2)", "pylint-plugin-utils (0.6)", "mypy (0.910)", "types-requests (2.25.11)", "types-tabulate (0.8.3)", "types-toml (0.10.1)", "pywin32 (>=225)"]
+tests = ["wheel (0.37.0)", "dvc", "pytest (6.2.5)", "pytest-cov (3.0.0)", "pytest-xdist (2.4.0)", "pytest-mock (3.6.1)", "pytest-lazy-fixture (0.6.3)", "pytest-docker (>=1,<2)", "flaky (3.7.0)", "mock (4.0.3)", "wget (3.2)", "filelock (3.3.2)", "xmltodict (0.12.0)", "Pygments (2.10.0)", "collective.checkdocs (0.2)", "pydocstyle (6.1.1)", "pylint (2.16.2)", "pylint-pytest (1.1.2)", "pylint-plugin-utils (0.6)", "mypy (0.981)", "types-requests (2.25.11)", "types-tabulate (0.8.3)", "types-toml (0.10.1)", "pywin32 (>=225)"]
 
 [package.dependencies]
 dvc = "*"
 
 [package.dependencies.pydrive2]
-version = ">=1.14.0"
+version = ">=1.19.0"
 extras = ["fsspec"]
 
 [[package]]
@@ -987,7 +987,7 @@ requests = ">=2.18.0,<3.0.0.dev0"
 
 [[package]]
 name = "google-api-python-client"
-version = "2.112.0"
+version = "2.113.0"
 description = "Google API Client Library for Python"
 category = "dev"
 optional = false
@@ -1002,7 +1002,7 @@ uritemplate = ">=3.0.1,<5"
 
 [[package]]
 name = "google-auth"
-version = "2.26.1"
+version = "2.26.2"
 description = "Google Authentication Library"
 category = "dev"
 optional = false
@@ -2499,7 +2499,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-ena
 
 [metadata]
 python-versions = "^3.9"
-content-hash = "44b5e5bcf25863248458730f6875c4bc9efee7bb359e1a2856ac559c6ff31781"
+content-hash = "f7d6a71eb1bd8f7364e3e1e6655b327e787bd72222d5853f49299ee036e5d40c"
 
 [metadata.files]
 aiohttp = []
