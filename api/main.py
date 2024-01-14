@@ -1,12 +1,13 @@
 from enum import Enum
 from io import StringIO
 
-from data_manipulation import preprocess
 from fastapi import FastAPI, UploadFile
 from fastapi.responses import FileResponse
 from joblib import load
 from pandas import DataFrame, read_csv
 from pydantic import BaseModel
+
+from .data_manipulation import preprocess
 
 app = FastAPI()
 
@@ -29,7 +30,7 @@ class MethodsType(str, Enum):
     feedback = "feedback"
 
 
-model = load("model.h5")
+model = load("api/model.h5")
 
 
 @app.get("/help")
@@ -52,7 +53,7 @@ def Methods(like: MethodsType):
     }
     df = DataFrame(data)
     if like == "predict_items":
-        response = FileResponse("atm/api/example.csv")
+        response = FileResponse("api/example.csv")
     elif like in ("predict", "history", "feedback"):
         response = df[df["methods"] == like].to_dict(orient="records")
     return response
@@ -64,10 +65,17 @@ def Predict(pred_body: Pred):
     data = data.drop(columns=["id_user"])
     data = preprocess(data)
     pred = model.predict(data)
-    data = read_csv("atm/api/predictions.csv")
-    new_row = {"id_user": pred_body.id_user, "predict": pred[0]}
+    new_row = {
+        "id_user": pred_body.id_user,
+        "lat": data["lat"].values[0],
+        "long": data["long"].values[0],
+        "predict": pred[0],
+    }
+    data = read_csv("api/predictions.csv")
     data = data.append(new_row, ignore_index=True)
-    data.to_csv("atm/api/predictions.csv", index=False)
+    data[["id_user", "lat", "long", "predict"]].to_csv(
+        "api/predictions.csv", index=False
+    )
     return {"prediction": pred[0]}
 
 
@@ -83,14 +91,14 @@ async def Predict_items_csv(file: UploadFile):
 
 @app.get("/history/{id}")
 def Show_history(id: int):
-    data = read_csv("atm/api/predictions.csv")
+    data = read_csv("api/predictions.csv")
     return data[data["id_user"] == id].to_dict(orient="records")
 
 
 @app.post("/feedback")
 def Save_feedback(feedback_body: Feedback):
-    data = read_csv("atm/api/feedback.csv")
+    data = read_csv("api/feedback.csv")
     new_row = {"id_user": feedback_body.id_user, "feedback": feedback_body.feedback}
     data = data.append(new_row, ignore_index=True)
-    data.to_csv("atm/api/feedback.csv", index=False)
+    data.to_csv("api/feedback.csv", index=False)
     return "Спасибо за отзыв"
