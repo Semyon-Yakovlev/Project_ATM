@@ -1,13 +1,12 @@
 from enum import Enum
 from io import StringIO
 
+from data_manipulation import preprocess
 from fastapi import FastAPI, UploadFile
 from fastapi.responses import FileResponse
+from joblib import load
 from pandas import DataFrame, read_csv
 from pydantic import BaseModel
-from joblib import load
-
-from data_manipulation import preprocess
 
 app = FastAPI()
 
@@ -29,7 +28,8 @@ class MethodsType(str, Enum):
     history = "history"
     feedback = "feedback"
 
-model = load('model.h5')
+
+model = load("model.h5")
 
 
 @app.get("/help")
