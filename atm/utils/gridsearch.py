@@ -1,16 +1,17 @@
+from pathlib import Path
+
 from catboost import CatBoostRegressor
+from hydra import main
 from omegaconf import DictConfig
 from sklearn.model_selection import train_test_split
 
-from hydra import main
-
-from .. import train_dir_git
 from ..data import read_data
 
 
 @main(version_base=None, config_path="../hydra", config_name="config")
 def train(cfg: DictConfig):
-    data = read_data(train_dir_git)
+    train_dir_local = Path.cwd() / "data" / "train.csv"
+    data = read_data(train_dir_local)
     X_train, X_test, y_train, y_test = train_test_split(
         data.drop(columns=["target"]),
         data.target,

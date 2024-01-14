@@ -73,7 +73,7 @@ vine = ">=5.0.0,<6.0.0"
 name = "annotated-types"
 version = "0.6.0"
 description = "Reusable constraint types to use with typing.Annotated"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.8"
 
@@ -84,6 +84,42 @@ description = "ANTLR 4.9.3 runtime for Python 3.7"
 category = "main"
 optional = false
 python-versions = "*"
+
+[[package]]
+name = "anyio"
+version = "4.2.0"
+description = "High level compatibility layer for multiple asynchronous event loop implementations"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.extras]
+doc = ["packaging", "Sphinx (>=7)", "sphinx-rtd-theme", "sphinx-autodoc-typehints (>=1.2.0)"]
+test = ["anyio", "coverage (>=7)", "exceptiongroup (>=1.2.0)", "hypothesis (>=4.0)", "psutil (>=5.9)", "pytest (>=7.0)", "pytest-mock (>=3.6.1)", "trustme", "uvloop (>=0.17)"]
+trio = ["trio (>=0.23)"]
+
+[package.dependencies]
+idna = ">=2.8"
+sniffio = ">=1.1"
+[package.dependencies.exceptiongroup]
+version = ">=1.0.2"
+python = "<3.11"
+
+[package.dependencies.typing-extensions]
+version = ">=4.1"
+python = "<3.11"
+
+[[package]]
+name = "api"
+version = "0.0.7"
+description = "Consume an API from ReadMe Build"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+nose = "*"
+requests = "*"
 
 [[package]]
 name = "appdirs"
@@ -737,6 +773,34 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "exceptiongroup"
+version = "1.2.0"
+description = "Backport of PEP 654 (exception groups)"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+marker = "python_version < \"3.11\""
+
+[package.extras]
+test = ["pytest (>=6)"]
+
+[[package]]
+name = "fastapi"
+version = "0.109.0"
+description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.extras]
+all = ["email-validator (>=2.0.0)", "httpx (>=0.23.0)", "itsdangerous (>=1.1.0)", "jinja2 (>=2.11.2)", "orjson (>=3.2.1)", "pydantic-extra-types (>=2.0.0)", "pydantic-settings (>=2.0.0)", "python-multipart (>=0.0.5)", "pyyaml (>=5.3.1)", "ujson (>=4.0.1,<4.0.2 || >4.0.2,<4.1.0 || >4.1.0,<4.2.0 || >4.2.0,<4.3.0 || >4.3.0,<5.0.0 || >5.0.0,<5.1.0 || >5.1.0)", "uvicorn (>=0.12.0)"]
+
+[package.dependencies]
+pydantic = ">=1.7.4,<1.8 || >1.8,<1.8.1 || >1.8.1,<2.0.0 || >2.0.0,<2.0.1 || >2.0.1,<2.1.0 || >2.1.0,<3.0.0"
+starlette = ">=0.35.0,<0.36.0"
+typing-extensions = ">=4.8.0"
+
+[[package]]
 name = "filelock"
 version = "3.13.1"
 description = "A platform independent file lock."
@@ -1061,6 +1125,14 @@ tornado = ["tornado (>=0.2)"]
 
 [package.dependencies]
 packaging = "*"
+
+[[package]]
+name = "h11"
+version = "0.14.0"
+description = "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1"
+category = "main"
+optional = false
+python-versions = ">=3.7"
 
 [[package]]
 name = "httplib2"
@@ -1411,6 +1483,14 @@ python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*
 setuptools = "*"
 
 [[package]]
+name = "nose"
+version = "1.3.7"
+description = "nose extends unittest to make testing easier"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "numpy"
 version = "1.22.3"
 description = "NumPy is the fundamental package for array computing with Python."
@@ -1638,7 +1718,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 name = "pydantic"
 version = "2.5.3"
 description = "Data validation using Python type hints"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 
@@ -1654,7 +1734,7 @@ typing-extensions = ">=4.6.1"
 name = "pydantic-core"
 version = "2.14.6"
 description = ""
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 
@@ -1795,6 +1875,17 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
 
 [package.dependencies]
 six = ">=1.5"
+
+[[package]]
+name = "python-multipart"
+version = "0.0.6"
+description = "A streaming multipart parser for Python"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+dev = ["atomicwrites (1.2.1)", "attrs (19.2.0)", "coverage (6.5.0)", "hatch", "invoke (1.7.3)", "more-itertools (4.3.0)", "pbr (4.3.0)", "pluggy (1.0.0)", "py (1.11.0)", "pytest-cov (4.0.0)", "pytest-timeout (2.1.0)", "pytest (7.2.0)", "pyyaml (5.1)"]
 
 [[package]]
 name = "pytz"
@@ -2006,6 +2097,14 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "sniffio"
+version = "1.3.0"
+description = "Sniff out which async library your code is running under"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "sqlalchemy"
 version = "2.0.25"
 description = "Database Abstraction Library"
@@ -2071,6 +2170,24 @@ tests = ["pytest (7.2.0)", "pytest-sugar (0.9.5)", "pytest-cov (3.0.0)", "pytest
 attrs = "*"
 orjson = "*"
 pygtrie = "*"
+
+[[package]]
+name = "starlette"
+version = "0.35.1"
+description = "The little ASGI library that shines."
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.extras]
+full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart", "pyyaml"]
+
+[package.dependencies]
+anyio = ">=3.4.0,<5"
+
+[package.dependencies.typing-extensions]
+version = ">=3.10.0"
+python = "<3.10"
 
 [[package]]
 name = "sympy"
@@ -2256,6 +2373,25 @@ socks = ["pysocks (>=1.5.6,<1.5.7 || >1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
+name = "uvicorn"
+version = "0.25.0"
+description = "The lightning-fast ASGI server."
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.extras]
+standard = ["colorama (>=0.4)", "httptools (>=0.5.0)", "python-dotenv (>=0.13)", "pyyaml (>=5.1)", "uvloop (>=0.14.0,<0.15.0 || >0.15.0,<0.15.1 || >0.15.1)", "watchfiles (>=0.13)", "websockets (>=10.4)"]
+
+[package.dependencies]
+click = ">=7.0"
+h11 = ">=0.8"
+
+[package.dependencies.typing-extensions]
+version = ">=4.0"
+python = "<3.11"
+
+[[package]]
 name = "vine"
 version = "5.1.0"
 description = "Python promises."
@@ -2363,7 +2499,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-ena
 
 [metadata]
 python-versions = "^3.9"
-content-hash = "f03ac7ad7fad5d84c09d34e38c1eeec6c599a2cc2d898a67e9ee236d9ab12df9"
+content-hash = "44b5e5bcf25863248458730f6875c4bc9efee7bb359e1a2856ac559c6ff31781"
 
 [metadata.files]
 aiohttp = []
@@ -2373,6 +2509,8 @@ alembic = []
 amqp = []
 annotated-types = []
 antlr4-python3-runtime = []
+anyio = []
+api = []
 appdirs = []
 async-timeout = []
 asyncssh = []
@@ -2415,6 +2553,8 @@ dvc-render = []
 dvc-studio-client = []
 dvc-task = []
 entrypoints = []
+exceptiongroup = []
+fastapi = []
 filelock = []
 fire = []
 flask = []
@@ -2436,6 +2576,7 @@ graphviz = []
 greenlet = []
 gto = []
 gunicorn = []
+h11 = []
 httplib2 = []
 hydra-core = []
 identify = []
@@ -2460,6 +2601,7 @@ multidict = []
 mypy-extensions = []
 networkx = []
 nodeenv = []
+nose = []
 numpy = []
 oauth2client = []
 oauthlib = []
@@ -2491,6 +2633,7 @@ pyjwt = []
 pyopenssl = []
 pyparsing = []
 python-dateutil = []
+python-multipart = []
 pytz = []
 pywin32 = []
 pyyaml = []
@@ -2508,9 +2651,11 @@ shortuuid = []
 shtab = []
 six = []
 smmap = []
+sniffio = []
 sqlalchemy = []
 sqlparse = []
 sqltrie = []
+starlette = []
 sympy = []
 tabulate = []
 tenacity = []
@@ -2527,6 +2672,7 @@ typing-extensions = []
 tzdata = []
 uritemplate = []
 urllib3 = []
+uvicorn = []
 vine = []
 virtualenv = []
 voluptuous = []
