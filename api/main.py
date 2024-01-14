@@ -5,10 +5,9 @@ from fastapi import FastAPI, UploadFile
 from fastapi.responses import FileResponse
 from pandas import DataFrame, read_csv
 from pydantic import BaseModel
+from joblib import load
 
-from .. import models_dir_local
-from ..data import read_data
-from ..preprocessing.data_manipulation import preprocess
+from data_manipulation import preprocess
 
 app = FastAPI()
 
@@ -30,8 +29,7 @@ class MethodsType(str, Enum):
     history = "history"
     feedback = "feedback"
 
-
-model = read_data(models_dir_local)
+model = load('model.h5')
 
 
 @app.get("/help")
