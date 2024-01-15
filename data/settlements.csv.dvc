@@ -3,3 +3,4 @@ outs:
   size: 41040739
   hash: md5
   path: settlements.csv
+  cache: true

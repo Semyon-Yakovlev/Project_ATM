@@ -3,3 +3,4 @@ outs:
   size: 4109
   hash: md5
   path: salary.csv
+  cache: true

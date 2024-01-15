@@ -3,3 +3,4 @@ outs:
   size: 3850
   hash: md5
   path: density.csv
+  cache: true
