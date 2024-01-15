@@ -3,7 +3,8 @@ name = "atm"
 version = "1.0.0"
 description = "mlops"
 authors = ["Semyon-Yakovlev <patt1337gg@gmail.com>",
-           "blarno <bigsquare@mail.ru>"]
+           "blarno <bigsquare@mail.ru>",
+           "wndmick <adammcd333@mail.ru>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
