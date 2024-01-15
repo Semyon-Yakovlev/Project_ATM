@@ -1,6 +1,0 @@
-outs:
-- md5: 7ca5e2f835c95584e14d6d5ef71533db
-  size: 3850
-  hash: md5
-  cache: true
-  path: density.csv
