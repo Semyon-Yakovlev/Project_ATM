@@ -2,3 +2,4 @@
     remote = gdrive
 ['remote "gdrive"']
     url = gdrive://1TabPf9f7bEOYv2yeBr6ebabOvt-d8-oP
+    verify = true
