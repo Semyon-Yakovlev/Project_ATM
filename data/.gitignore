@@ -2,5 +2,7 @@
 /density.csv
 /salary.csv
 /settlements.csv
-/train0.csv
-/train1.csv
+/X_test.csv
+/X_train.csv
+/y_test.csv
+/y_train.csv

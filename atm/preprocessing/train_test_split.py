@@ -1,21 +1,17 @@
-from pathlib import Path
-
 from hydra import main
 from omegaconf import DictConfig
 from sklearn.model_selection import train_test_split
 
 from ..data import read_data
+from .data_manipulation import preprocess
 
+from . import X_train_dir_local, X_test_dir_local, y_train_dir_local, y_test_dir_local, train_dir_git
 
 @main(version_base=None, config_path="../hydra", config_name="config")
 def split_data(cfg: DictConfig):
-    train_dir_local = Path.cwd() / "data" / "train.csv"
-    X_train_dir_local = Path.cwd() / "data" / "X_train.csv"
-    X_test_dir_local = Path.cwd() / "data" / "X_test.csv"
-    y_train_dir_local = Path.cwd() / "data" / "y_train.csv"
-    y_test_dir_local = Path.cwd() / "data" / "y_test.csv"
 
-    data = read_data(train_dir_local)
+    data = read_data(train_dir_git)
+    data = preprocess(data)
     X_train, X_test, y_train, y_test = train_test_split(
         data.drop(columns=["target"]),
         data.target,

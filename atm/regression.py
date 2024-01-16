@@ -1,4 +1,3 @@
-from pathlib import Path
 from subprocess import check_output
 
 from catboost import CatBoostRegressor, Pool
@@ -9,15 +8,10 @@ from omegaconf import DictConfig
 from sklearn.metrics import r2_score
 
 from .data import read_data
-
+from . import X_train_dir_git, X_test_dir_git, y_train_dir_git , y_test_dir_git, models_dir_local
 
 @main(version_base=None, config_path="./hydra", config_name="config")
 def train(cfg: DictConfig):
-    models_dir_local = Path.cwd() / "models" / "model.h5"
-    X_train_dir_local = Path.cwd() / "data" / "X_train.csv"
-    X_test_dir_local = Path.cwd() / "data" / "X_test.csv"
-    y_train_dir_local = Path.cwd() / "data" / "y_train.csv"
-    y_test_dir_local = Path.cwd() / "data" / "y_test.csv"
 
     set_tracking_uri(f"""http://{cfg["params"].host}:{cfg["params"].port}""")
     git_commit_id = (
@@ -34,10 +28,10 @@ def train(cfg: DictConfig):
         log_param("l2_leaf_reg", cfg["params"].l2_leaf_reg)
         log_param("random", cfg["params"].random)
         X_test, X_train, y_train, y_test = (
-            read_data(X_test_dir_local),
-            read_data(X_train_dir_local),
-            read_data(y_train_dir_local),
-            read_data(y_test_dir_local),
+            read_data(X_test_dir_git),
+            read_data(X_train_dir_git),
+            read_data(y_train_dir_git),
+            read_data(y_test_dir_git),
         )
         val_pool = Pool(X_test, y_test)
 

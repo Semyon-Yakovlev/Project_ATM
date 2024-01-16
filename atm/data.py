@@ -1,25 +1,14 @@
-from pathlib import Path
-
+import dvc.api
 from joblib import load
 from pandas import read_csv
-
+from . import project_dir_git, train_dir_git, models_dir_git, X_train_dir_git, X_test_dir_git, y_train_dir_git , y_test_dir_git
 
 def read_data(path):
-    data_dir_local = Path.cwd() / "data" / "train.csv"
-    models_dir_local = Path.cwd() / "models" / "model.h5"
-    X_train_dir_local = Path.cwd() / "data" / "X_train.csv"
-    X_test_dir_local = Path.cwd() / "data" / "X_test.csv"
-    y_train_dir_local = Path.cwd() / "data" / "y_train.csv"
-    y_test_dir_local = Path.cwd() / "data" / "y_test.csv"
-
-    if path in (X_train_dir_local, X_test_dir_local):
-        data = read_csv(path, index_col=[0])
-    elif path in (y_train_dir_local, y_test_dir_local):
-        data = read_csv(path, index_col=[0])
-    elif path == data_dir_local:
-        data = read_csv(path, index_col=[0])
-    elif path == models_dir_local:
-        data = load(path)
-    else:
-        raise
+    with dvc.api.open(path, project_dir_git) as file:
+        if path in (X_train_dir_git, X_test_dir_git, y_train_dir_git, y_test_dir_git, train_dir_git):
+            data = read_csv(file)
+        elif path == models_dir_git:
+            data = load(file)
+        else:
+            raise
     return data
