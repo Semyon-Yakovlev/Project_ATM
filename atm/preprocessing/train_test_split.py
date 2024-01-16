@@ -10,13 +10,13 @@ from . import (
     y_test_dir_local,
     y_train_dir_local,
 )
-from .data_manipulation import preprocess
+from .data_manipulation import add_features
 
 
 @main(version_base=None, config_path="../hydra", config_name="config")
 def split_data(cfg: DictConfig):
     data = read_data(train_dir_git)
-    data = preprocess(data)
+    data = add_features(data)
     X_train, X_test, y_train, y_test = train_test_split(
         data.drop(columns=["target"]),
         data.target,
