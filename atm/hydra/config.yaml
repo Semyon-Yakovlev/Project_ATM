@@ -4,10 +4,8 @@ params:
  learning_rate: 0.1
  loss_function: 'RMSE'
  verbose : 10000
- min_data_in_leaf : 1
  depth : 6
  l2_leaf_reg : 3
- random : 666
  task_type : 'CPU'
  test_size : 0.2
  host : '127.0.0.1'

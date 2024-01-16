@@ -23,10 +23,8 @@ def train(cfg: DictConfig):
         log_param("learning_rate", cfg["params"].learning_rate)
         log_param("loss_function", cfg["params"].loss_function)
         log_param("verbose", cfg["params"].verbose)
-        log_param("min_data_in_leaf", cfg["params"].min_data_in_leaf)
         log_param("depth", cfg["params"].depth)
         log_param("l2_leaf_reg", cfg["params"].l2_leaf_reg)
-        log_param("random", cfg["params"].random)
         X_test, X_train, y_train, y_test = (
             read_data(X_test_dir_git),
             read_data(X_train_dir_git),
@@ -40,10 +38,8 @@ def train(cfg: DictConfig):
             learning_rate=cfg["params"].learning_rate,
             loss_function=cfg["params"].loss_function,
             verbose=cfg["params"].verbose,
-            min_data_in_leaf=cfg["params"].min_data_in_leaf,
             depth=cfg["params"].depth,
             l2_leaf_reg=cfg["params"].l2_leaf_reg,
-            random_seed=cfg["params"].random,
             task_type=cfg["params"].task_type,
         ).fit(X_train, y_train, eval_set=val_pool)
         log_metric("r2_score", r2_score(y_test, reg.predict(X_test)))
