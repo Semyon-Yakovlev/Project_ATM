@@ -7,12 +7,18 @@ from mlflow import log_metric, log_param, set_tracking_uri, start_run
 from omegaconf import DictConfig
 from sklearn.metrics import r2_score
 
+from . import (
+    X_test_dir_git,
+    X_train_dir_git,
+    models_dir_local,
+    y_test_dir_git,
+    y_train_dir_git,
+)
 from .data import read_data
-from . import X_train_dir_git, X_test_dir_git, y_train_dir_git , y_test_dir_git, models_dir_local
+
 
 @main(version_base=None, config_path="./hydra", config_name="config")
 def train(cfg: DictConfig):
-
     set_tracking_uri(f"""http://{cfg["params"].host}:{cfg["params"].port}""")
     git_commit_id = (
         check_output(["git", "rev-parse", "--short", "HEAD"]).strip().decode("utf-8")

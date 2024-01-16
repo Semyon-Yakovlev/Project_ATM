@@ -1,20 +1,14 @@
-from pathlib import Path
-
 from catboost import CatBoostRegressor
 from hydra import main
 from omegaconf import DictConfig
 
 from ..data import read_data
-from . import X_train_dir_git, X_test_dir_git, y_train_dir_git , y_test_dir_git
+from . import X_train_dir_git, y_train_dir_git
+
 
 @main(version_base=None, config_path="../hydra", config_name="config")
 def train(cfg: DictConfig):
-    X_test, X_train, y_train, y_test = (
-            read_data(X_test_dir_git),
-            read_data(X_train_dir_git),
-            read_data(y_train_dir_git),
-            read_data(y_test_dir_git),
-        )
+    X_train, y_train = read_data(X_train_dir_git), read_data(y_train_dir_git)
     grid = {
         "learning_rate": [0.000001, 0.1, 0.3, 0.5, 0.9],
         "depth": [4, 6, 10],

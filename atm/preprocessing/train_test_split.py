@@ -3,13 +3,18 @@ from omegaconf import DictConfig
 from sklearn.model_selection import train_test_split
 
 from ..data import read_data
+from . import (
+    X_test_dir_local,
+    X_train_dir_local,
+    train_dir_git,
+    y_test_dir_local,
+    y_train_dir_local,
+)
 from .data_manipulation import preprocess
 
-from . import X_train_dir_local, X_test_dir_local, y_train_dir_local, y_test_dir_local, train_dir_git
 
 @main(version_base=None, config_path="../hydra", config_name="config")
 def split_data(cfg: DictConfig):
-
     data = read_data(train_dir_git)
     data = preprocess(data)
     X_train, X_test, y_train, y_test = train_test_split(
