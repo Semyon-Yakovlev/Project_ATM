@@ -138,7 +138,7 @@ async def cmd_predict(message: Message):
     except ValueError:
         return await message.reply("Некорректные данные")
 
-    if not atm_group in banks:
+    if atm_group not in banks:
         return await message.reply("Некорректные данные")
 
     async with aiohttp.ClientSession() as session:
