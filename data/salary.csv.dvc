@@ -1,6 +1,0 @@
-outs:
-- md5: 4dedb959548cf04d6565157ae8cf6272
-  size: 4109
-  hash: md5
-  path: salary.csv
-  cache: true

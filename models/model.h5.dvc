@@ -1,5 +1,0 @@
-outs:
-- md5: 528af038e73f696fa5bb90b0a3ddfe00
-  size: 490148
-  hash: md5
-  path: model.h5
