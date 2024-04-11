@@ -8,7 +8,7 @@ from pandas import DataFrame, concat, read_csv
 from pydantic import BaseModel
 from redis import StrictRedis
 from dvc.api import DVCFileSystem
-import transform_data
+from transform import transform_data
 git_dir = "https://github.com/Semyon-Yakovlev/Project_ATM/"
 model_dir = "data/model.pkl"
 data_pipeline_dir = "data/data_pipeline.pkl"
@@ -63,7 +63,7 @@ def predict(pred_body: Pred):
     data = DataFrame([pred_body.dict()])
     data_model = data.drop(columns=["id_user"])
     data_model = transform_data(data_model)
-    data_model = data_pipeline.transform(data_model)
+    data_model = data_pipeline.transform_data(data_model)
     pred = model.predict(data_model)
     new_row = {
         "id_user": pred_body.id_user,
@@ -90,7 +90,7 @@ def predict_batch(pred_body: PredBatch):
 
     data = DataFrame(pred_body.dict())
     model_data = transform_data(data.drop(columns=["id_user"]))
-    model_data = data_pipeline.transform(model_data)
+    model_data = data_pipeline.transform_data(model_data)
     pred = model.predict(model_data)
     data["prediction"] = pred
 
