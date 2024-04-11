@@ -1,5 +1,4 @@
 /train.csv
 /model.pkl
 /data_pipeline.pkl
-/predictions.csv
-/feedback.csv
+/settlements_processed.csv

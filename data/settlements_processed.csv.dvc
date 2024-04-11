@@ -1,0 +1,5 @@
+outs:
+- md5: 9023bd5a0dbd6d738ffd188b5a548b91
+  size: 1300239
+  hash: md5
+  path: settlements_processed.csv
