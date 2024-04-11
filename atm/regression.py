@@ -12,7 +12,7 @@ from . import data_pipeline_dir_local, model_dir_local, test_dir_local, train_di
 from .preprocessing.transform_data import transform_data
 
 
-@main(version_base=None, config_path="./hydra", config_name="config")
+@main(version_base=None, config_path="../hydra", config_name="config")
 def train(cfg: DictConfig):
     set_tracking_uri(f"""http://{cfg["params"].host}:{cfg["params"].port}""")
     git_commit_id = (

@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  fastapi:
+    build: ./fastapi
+    command: uvicorn api:app --reload --port 80 --host "0.0.0.0"
+    ports:
+      - 80:80
+    depends_on:
+      - redis
+
+    networks:
+      - atm
+  redis:
+    image: redis:alpine
+    hostname: redis
+    container_name: redis
+    restart: on-failure
+    ports:
+      - "6379:6379"
+    command: redis-server
+    volumes:
+      - cache:/data
+    networks:
+      - atm
+
+volumes:
+  cache:
+    driver: local
+networks:
+  atm:
+    name: atm

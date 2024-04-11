@@ -14,7 +14,7 @@ from aiogram.types import (
     ReplyKeyboardRemove,
 )
 
-bot = Bot(token=os.getenv("API_TOKEN"))
+bot = Bot('6909298966:AAEHZI8GPrwV81Jp6DgZIT8lg_h0pH_BSoU')
 
 storage = MemoryStorage()
 dp = Dispatcher(storage=storage)
@@ -92,7 +92,7 @@ async def cmd_history(message: Message):
     user_id = int(message.from_user.id)
     async with aiohttp.ClientSession() as session:
         async with session.get(
-            f"https://atmapi-dahy.onrender.com/history/{user_id}"
+            f"http://api:80/history/{user_id}"
         ) as res:
             history = await res.json()
 
@@ -120,7 +120,7 @@ async def rate_text(message: Message, state: FSMContext):
     text = message.text
     async with aiohttp.ClientSession() as session:
         async with session.post(
-            "https://atmapi-dahy.onrender.com/feedback",
+            "http://api:80/feedback",
             json={"id_user": user_id, "feedback": text},
         ):
             pass
@@ -143,7 +143,7 @@ async def cmd_predict(message: Message):
 
     async with aiohttp.ClientSession() as session:
         async with session.post(
-            "https://atmapi-dahy.onrender.com/predict",
+            "http://api:80/predict",
             json={"id_user": user_id, "lat": lat, "long": long, "atm_group": atm_group},
         ) as res:
             if res.status == 200:
@@ -183,7 +183,7 @@ async def send_batch(message: Message, state: FSMContext):
 
     async with aiohttp.ClientSession() as session:
         async with session.post(
-            "https://atmapi-dahy.onrender.com/predict_batch",
+            "http://api:80/predict_batch",
             json={
                 "id_user": user_id,
                 "lat": lats,

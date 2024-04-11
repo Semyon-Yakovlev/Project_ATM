@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "atm-dashboard"
+version = "1.0.0"
+description = "Dashboard for determining the popularity of geolocation for ATM placement"
+authors = ["Semyon-Yakovlev <patt1337gg@gmail.com>",
+           "blarno <bigsquare@mail.ru>",
+           "wndmick <adammcd333@mail.ru>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.2.1"
+streamlit = "^1.32.2"
+plotly = "^5.20.0"
+dvc = "^3.39.0"
+dvc-gdrive = "^3.0.1"
+
+[build-system]
+requires = ["poetry>=1.0.0"]
+build-backend = "poetry.masonry.api"
