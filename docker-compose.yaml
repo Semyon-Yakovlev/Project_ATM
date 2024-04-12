@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  dashboard:
+    image: palach1337/atm-project:dashboard
+    networks:
+      - atm
+
+networks:
+  atm:
+    name: atm
