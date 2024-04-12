@@ -1,6 +1,5 @@
 import asyncio
 import os
-
 import aiohttp
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import Command, StateFilter
@@ -13,8 +12,9 @@ from aiogram.types import (
     ReplyKeyboardMarkup,
     ReplyKeyboardRemove,
 )
-
-bot = Bot('6909298966:AAEHZI8GPrwV81Jp6DgZIT8lg_h0pH_BSoU')
+token = ""
+url = "http://fastapi:80"
+bot = Bot(token=token)
 
 storage = MemoryStorage()
 dp = Dispatcher(storage=storage)
@@ -92,7 +92,7 @@ async def cmd_history(message: Message):
     user_id = int(message.from_user.id)
     async with aiohttp.ClientSession() as session:
         async with session.get(
-            f"http://api:80/history/{user_id}"
+            f"{url}/history/{user_id}"
         ) as res:
             history = await res.json()
 
@@ -120,7 +120,7 @@ async def rate_text(message: Message, state: FSMContext):
     text = message.text
     async with aiohttp.ClientSession() as session:
         async with session.post(
-            "http://api:80/feedback",
+            f"{url}/feedback",
             json={"id_user": user_id, "feedback": text},
         ):
             pass
@@ -143,7 +143,7 @@ async def cmd_predict(message: Message):
 
     async with aiohttp.ClientSession() as session:
         async with session.post(
-            "http://api:80/predict",
+            f"{url}/predict",
             json={"id_user": user_id, "lat": lat, "long": long, "atm_group": atm_group},
         ) as res:
             if res.status == 200:
@@ -183,7 +183,7 @@ async def send_batch(message: Message, state: FSMContext):
 
     async with aiohttp.ClientSession() as session:
         async with session.post(
-            "http://api:80/predict_batch",
+            f"{url}/predict_batch",
             json={
                 "id_user": user_id,
                 "lat": lats,

@@ -1,10 +1,8 @@
-from dvc.api import DVCFileSystem
 import pandas as pd
 import plotly.express as px
 import streamlit as st
 
-fs = DVCFileSystem("https://github.com/Semyon-Yakovlev/Project_ATM/")
-with fs.open("data/train.csv") as file:
+with open("train.csv") as file:
     data = pd.read_csv(file, delimiter=";")
 data = data.rename({"long": "lon"}, axis=1)
 data["atm_group"] = data["atm_group"].astype(int)

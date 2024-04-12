@@ -2,9 +2,6 @@ import json
 
 import numpy as np
 import pandas as pd
-from dvc.api import DVCFileSystem
-
-fs = DVCFileSystem("https://github.com/Semyon-Yakovlev/Project_ATM/")
 bank_dict = {
     "ВТБ": 5478,
     "АЛЬФА-БАНК": 1942,
@@ -14,10 +11,10 @@ bank_dict = {
     "АК БАРС": 1022,
     "УРАЛСИБ БАНК": 32,
 }
-with fs.open("data/settlements_processed.csv", "rb") as file:
+with open("data/settlements_processed.csv", "rb") as file:
     settlements = pd.read_csv(file, sep=";")
 
-with fs.open("data/salary_processed.csv", "rb") as file:
+with open("data/salary_processed.csv", "rb") as file:
     salary = pd.read_csv(file, sep=";")
 
 def calc_dist(lat_1, long_1, lat_2, long_2):

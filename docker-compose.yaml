@@ -2,15 +2,23 @@ version: '3.7'
 
 services:
   fastapi:
-    build: ./fastapi
-    command: uvicorn api:app --reload --port 80 --host "0.0.0.0"
-    ports:
-      - 80:80
+    build: ./atmFastapi
+    command: uvicorn api.main:app --reload --port 80 --host "0.0.0.0"
     depends_on:
       - redis
-
+    ports:
+      - 80:80
     networks:
       - atm
+      
+  bot:
+      build: ./bot
+      command: python bot.py
+      networks: 
+        - atm
+      depends_on:
+        - fastapi
+
   redis:
     image: redis:alpine
     hostname: redis
@@ -23,7 +31,15 @@ services:
       - cache:/data
     networks:
       - atm
-
+  
+  dashboard:
+    build: ./streamlit
+    command: streamlit run /dashboard/dashboard.py
+    ports:
+      - 8501:8501
+    networks:
+      - atm
+    
 volumes:
   cache:
     driver: local

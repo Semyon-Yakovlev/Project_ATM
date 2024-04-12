@@ -7,15 +7,10 @@ from fastapi import FastAPI
 from pandas import DataFrame, concat, read_csv
 from pydantic import BaseModel
 from redis import StrictRedis
-from dvc.api import DVCFileSystem
 from transform import transform_data
-git_dir = "https://github.com/Semyon-Yakovlev/Project_ATM/"
-model_dir = "data/model.pkl"
-data_pipeline_dir = "data/data_pipeline.pkl"
-app = FastAPI()
-redis_client = StrictRedis(host="localhost", port=6379, db=0)
-fs = DVCFileSystem(git_dir)
 
+app = FastAPI()
+redis_client = StrictRedis(host="redis", port=6379, db=0)
 class Pred(BaseModel):
     id_user: int
     atm_group: str
@@ -41,10 +36,10 @@ class MethodsType(str, Enum):
     history = "history"
     feedback = "feedback"
 
-with fs.open(model_dir, "rb") as file:
+with open("data/model.pkl", "rb") as file:
     model = pickle.load(file)
 
-with fs.open(data_pipeline_dir, "rb") as file:
+with open("data/data_pipeline.pkl", "rb") as file:
     data_pipeline = pickle.load(file)
 
 
@@ -63,7 +58,7 @@ def predict(pred_body: Pred):
     data = DataFrame([pred_body.dict()])
     data_model = data.drop(columns=["id_user"])
     data_model = transform_data(data_model)
-    data_model = data_pipeline.transform_data(data_model)
+    data_model = data_pipeline.transform(data_model)
     pred = model.predict(data_model)
     new_row = {
         "id_user": pred_body.id_user,
@@ -73,10 +68,10 @@ def predict(pred_body: Pred):
         "prediction": pred[0],
     }
 
-    data = read_csv("predictions.csv")
+    data = read_csv("api/predictions.csv")
     data = concat([data, DataFrame([new_row])], ignore_index=True)
     data[["id_user", "lat", "long", "atm_group", "prediction"]].to_csv(
-        "predictions.csv", index=False
+        "api/predictions.csv", index=False
     )
     redis_client.set(str(pred_body), str(pred[0]))
     return {"prediction": str(pred[0])}
@@ -90,14 +85,14 @@ def predict_batch(pred_body: PredBatch):
 
     data = DataFrame(pred_body.dict())
     model_data = transform_data(data.drop(columns=["id_user"]))
-    model_data = data_pipeline.transform_data(model_data)
+    model_data = data_pipeline.transform(model_data)
     pred = model.predict(model_data)
     data["prediction"] = pred
 
-    old_data = read_csv("predictions.csv")
+    old_data = read_csv("api/predictions.csv")
     new_data = concat([old_data, data], ignore_index=True)
     new_data[["id_user", "atm_group", "lat", "long", "prediction"]].to_csv(
-        "predictions.csv", index=False
+        "api/predictions.csv", index=False
     )
 
     result = data[["lat", "long", "atm_group", "prediction"]].to_dict(orient="records")
@@ -112,7 +107,7 @@ def show_history(id_user: int):
     if history_result is not None:
         return json.loads(history_result)
 
-    data = read_csv("predictions.csv")
+    data = read_csv("api/predictions.csv")
     history = data[data["id_user"] == id_user].tail(20).to_dict(orient="records")
 
     redis_client.set(str(id_user), json.dumps(history))
@@ -121,8 +116,8 @@ def show_history(id_user: int):
 
 @app.post("/feedback")
 def save_feedback(feedback_body: Feedback):
-    data = read_csv("feedback.csv")
+    data = read_csv("api/feedback.csv")
     new_row = {"id_user": feedback_body.id_user, "feedback": feedback_body.feedback}
     data = concat([data, DataFrame([new_row])], ignore_index=True)
-    data.to_csv("feedback.csv", index=False)
+    data.to_csv("api/feedback.csv", index=False)
     return "Спасибо за отзыв"

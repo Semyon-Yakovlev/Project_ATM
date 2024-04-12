@@ -11,8 +11,6 @@ python = "^3.11"
 pandas = "^2.2.1"
 streamlit = "^1.32.2"
 plotly = "^5.20.0"
-dvc = "^3.39.0"
-dvc-gdrive = "^3.0.1"
 
 [build-system]
 requires = ["poetry>=1.0.0"]
