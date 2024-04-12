@@ -1,1 +1,8 @@
 /train.csv
+<<<<<<< HEAD
+=======
+/model.pkl
+/data_pipeline.pkl
+/settlements_processed.csv
+/salary_processed.csv
+>>>>>>> af75c048ad028945d742bf30745f282556fd6864

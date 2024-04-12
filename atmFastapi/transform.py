@@ -3,8 +3,6 @@ import json
 import numpy as np
 import pandas as pd
 
-from . import salary_processed_dir, settlements_processed_dir
-
 bank_dict = {
     "ВТБ": 5478,
     "АЛЬФА-БАНК": 1942,
@@ -14,9 +12,11 @@ bank_dict = {
     "АК БАРС": 1022,
     "УРАЛСИБ БАНК": 32,
 }
+with open("data/settlements_processed.csv", "rb") as file:
+    settlements = pd.read_csv(file, sep=";")
 
-settlements = pd.read_csv(settlements_processed_dir, sep=";")
-salary = pd.read_csv(salary_processed_dir, sep=";")
+with open("data/salary_processed.csv", "rb") as file:
+    salary = pd.read_csv(file, sep=";")
 
 
 def calc_dist(lat_1, long_1, lat_2, long_2):

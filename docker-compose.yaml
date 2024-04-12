@@ -1,11 +1,56 @@
 version: '3.7'
 
 services:
+<<<<<<< HEAD
   dashboard:
     image: palach1337/atm-project:dashboard
     networks:
       - atm
 
+=======
+  fastapi:
+    build: ./atmFastapi
+    command: uvicorn api.main:app --reload --port 80 --host "0.0.0.0"
+    depends_on:
+      - redis
+    ports:
+      - 80:80
+    networks:
+      - atm
+      
+  bot:
+      build: ./bot
+      command: python bot.py
+      networks: 
+        - atm
+      depends_on:
+        - fastapi
+
+  redis:
+    image: redis:alpine
+    hostname: redis
+    container_name: redis
+    restart: on-failure
+    ports:
+      - "6379:6379"
+    command: redis-server
+    volumes:
+      - cache:/data
+    networks:
+      - atm
+  
+  dashboard:
+    build: ./streamlit
+    command: streamlit run /dashboard/dashboard.py
+    ports:
+      - 8501:8501
+    networks:
+      - atm
+    
+volumes:
+  cache:
+    driver: local
+>>>>>>> af75c048ad028945d742bf30745f282556fd6864
 networks:
   atm:
     name: atm
