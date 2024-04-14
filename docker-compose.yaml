@@ -1,13 +1,11 @@
 version: '3.7'
 
 services:
-<<<<<<< HEAD
   dashboard:
     image: palach1337/atm-project:dashboard
     networks:
       - atm
 
-=======
   fastapi:
     build: ./atmFastapi
     command: uvicorn api.main:app --reload --port 80 --host "0.0.0.0"
@@ -50,7 +48,6 @@ services:
 volumes:
   cache:
     driver: local
->>>>>>> af75c048ad028945d742bf30745f282556fd6864
 networks:
   atm:
     name: atm
