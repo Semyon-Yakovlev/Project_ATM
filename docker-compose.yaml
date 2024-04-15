@@ -1,11 +1,6 @@
 version: '3.7'
 
 services:
-  dashboard:
-    image: palach1337/atm-project:dashboard
-    networks:
-      - atm
-
   fastapi:
     build: ./atmFastapi
     command: uvicorn api.main:app --reload --port 80 --host "0.0.0.0"
@@ -39,7 +34,7 @@ services:
   
   dashboard:
     build: ./streamlit
-    command: streamlit run /dashboard/dashboard.py
+    command: streamlit run /dashboard/dashboard.py --server.port 8501
     ports:
       - 8501:8501
     networks:
