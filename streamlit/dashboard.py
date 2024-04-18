@@ -3,7 +3,7 @@ import plotly.express as px
 
 import streamlit as st
 
-with open("train.csv") as file:
+with open("dashboard/train.csv") as file:
     data = pd.read_csv(file, delimiter=";")
 data = data.rename({"long": "lon"}, axis=1)
 data["atm_group"] = data["atm_group"].astype(int)
