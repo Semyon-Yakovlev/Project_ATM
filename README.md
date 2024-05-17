@@ -2,6 +2,12 @@
 
 Определние популярности геолокации для размещения банкомата
 
+Для сборки проекта необходимо прописать команду docker compose up --build для сборки Docker контейнера.
+После сборки контейнера будут доступны приложения:
+1) Streamlit - http://localhost:8501
+2) FastApi (запросы кэшируются в redis)
+3) Telegram Bot
+
 Ссылка на датасеты:
 https://drive.google.com/drive/folders/1cpSOWXf-CPhT-gLRaoLVKJqLqe163mvq?usp=drive_link
 
@@ -34,8 +40,8 @@ https://drive.google.com/drive/folders/1cpSOWXf-CPhT-gLRaoLVKJqLqe163mvq?usp=dri
 
 
 Plan:
-1. Data parsing.
-2. Feature Engineering.
-3. Train ML models.
-4. Design and train DL models.
-5. Create web application.
+1. Data parsing. +
+2. Feature Engineering. +
+3. Train ML models. +
+4. Design and train DL models. -in progress
+5. Create web application. +
