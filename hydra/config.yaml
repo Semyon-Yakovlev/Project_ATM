@@ -1,0 +1,12 @@
+model: catboost_model
+params:
+ subsample: 0.92
+ booster: 'gbtree'
+ reg_lambda: 1.6
+ max_depth : 7
+ learning_rate : 0.028
+ n_estimators : 3
+ colsample_bylevel : 0.97
+ colsample_bytree : 0.99
+ host : '127.0.0.1'
+ port : 8080
